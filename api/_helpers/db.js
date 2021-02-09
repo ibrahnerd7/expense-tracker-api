@@ -17,6 +17,7 @@ async function initialize(){
 
     //init models and add them to exported db object
     db.User=require('../users/users.model')(sequelize);
+    db.Expense=require('../expenses/expenses.model')(sequelize);
 
     //sync all models with database
     await sequelize.sync();
