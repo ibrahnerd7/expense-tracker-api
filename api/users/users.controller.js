@@ -14,6 +14,8 @@ router.get('/:id', authorize(), getById);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
+module.exports=router;
+
 function authenticateSchema(req, res, next) {
     const schema = Joi.object({
         userName: Joi.string().required(),

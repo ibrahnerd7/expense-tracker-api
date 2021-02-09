@@ -14,4 +14,10 @@ async function initialize(){
 
     //connect to db
     const sequelize=new Sequelize(database,user,password,{dialect:"mysql"});
+
+    //init models and add them to exported db object
+    db.User=require('../users/users.model')(sequelize);
+
+    //sync all models with database
+    await sequelize();
 }
