@@ -6,7 +6,13 @@ const authorize=require('../_middleware/authorize');
 const userService=require('../users/users.service');
 
 //routes
-router.post()
+router.post('/authenticate',authenticateSchema,authenticate);
+router.post('/register', registerSchema, register);
+router.get('/', authorize(), getAll);
+router.get('/current', authorize(), getCurrent);
+router.get('/:id', authorize(), getById);
+router.put('/:id', authorize(), updateSchema, update);
+router.delete('/:id', authorize(), _delete);
 
 function authenticateSchema(req, res, next) {
     const schema = Joi.object({
