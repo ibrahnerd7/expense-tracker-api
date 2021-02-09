@@ -33,8 +33,8 @@ async function getById(id){
 
 async function create(params){
     //validate
-    if(await db.User.findOne({where:{username:params.userName}})){
-        throw 'Username "' + params.userName + '" is already taken';
+    if(await db.User.findOne({where:{userName:params.userName}})){
+        throw 'UserName "' + params.userName + '" is already taken';
     }
 
     //hash password
@@ -43,7 +43,7 @@ async function create(params){
     }
 
     //save user
-    await db.User.create(params.user);
+    await db.User.create(params);
 }
 
 async function update(id,params){

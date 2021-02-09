@@ -4,7 +4,7 @@ function validateRequest(req,next,schema){
     const options={
         abortEarly:false,
         allowUnknown:true,
-        scriptUnknown:true
+        stripUnknown:true
     }
 
     const {error,value}=schema.validate(req.body,options);
@@ -13,6 +13,7 @@ function validateRequest(req,next,schema){
     }
     else{
         req.body=value;
+        console.log("body OK")
         next();
     }
 }

@@ -6,12 +6,13 @@ module.exports=authorize;
 
 function authorize(){
     return[
-        //authenticate JWT toen and attach decoded token to request as req.user
+        //authenticate JWT token and attach decoded token to request as req.user
         jwt({secret,algorithms:['HS256']}),
 
         //attach full user record to request object
         async (req,res,next)=>{
-            const user=await db.User.findByPk(req,user.sub);
+            console.log("req",req);
+            const user=await db.User.findByPk(req.user.sub);
 
             //check if user still exists
             if(!user)
