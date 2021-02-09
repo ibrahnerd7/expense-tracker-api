@@ -52,10 +52,10 @@ async function update(id,params){
     //validate
     const userNameChanged=params.userName && user.userName !== params.userName;
     if(userNameChanged && await db.User.findOne({where:{userName:params.userName}})){
-        throw 'Username "' + params.userName + '" is alreasy taken';
+        throw 'Username "' + params.userName + '" is already taken';
     }
 
-    //hash password is it was entere
+    //hash password is it was entered
     if(params.password){
         params.password=await bcrypt.hash(params.password,10);
     }
