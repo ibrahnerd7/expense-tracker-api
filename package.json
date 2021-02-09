@@ -2,10 +2,14 @@
     "name": "expense-tracker-api",
     "version": "1.0.0",
     "description": "An api to keep a record of users expenses",
-    "main": "index.js",
+    "main": "server.js",
     "repository": "https://github.com/ibrahnerd7/expense-tracker-api",
     "author": "Ibrahnerd7",
     "license": "MIT",
+    "scripts": {
+        "start": "node ./server.js",
+        "start:dev":"nodemon ./server.js"
+    },
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
