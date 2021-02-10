@@ -28,21 +28,11 @@
     ],
     "paths": {
         "/users": {
-            "post": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
                 "description": "Get all users",
-                "parameters": [
-                    {
-                      "name": "data",
-                      "in": "body",
-                      "description": "Estimate data",
-                      "schema": {
-                        "$ref": "#/definitions/data"
-                      }
-                    }
-                  ],
                 "produces": [
                     "application/json"
                 ],
