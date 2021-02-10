@@ -14,7 +14,7 @@ async function initialize(){
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
     //connect to db
-    const sequelize=new Sequelize(database,user,password,{dialect:"mysql"});
+    const sequelize=new Sequelize('mysql://b1c69b8787dae0:cb035abc@us-cdbr-east-03.cleardb.com/heroku_aaeba0b0c26fad3?reconnect=true');
 
     //init models and add them to exported db object
     db.User=require('../users/users.model')(sequelize);
