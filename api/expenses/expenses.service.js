@@ -26,7 +26,7 @@ async function update(id,params){
     const expense=await getExpense(id);
 
     //validate
-    const titleChanged=params.title && user.title !== params.title;
+    const titleChanged=params.title && expense.title !== params.title;
     if(titleChanged && await db.Expense.findOne({where:{title:params.title}})){
         throw 'Title "' + params.title + '" is already taken';
     }

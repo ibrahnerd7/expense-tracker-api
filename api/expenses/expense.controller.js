@@ -3,7 +3,7 @@ const router=express.Router();
 const Joi=require('joi');
 const validateRequest=require('../_middleware/validate-request');
 const authorize=require('../_middleware/authorize');
-const expenseService=require('../expenses/users.service');
+const expenseService=require('../expenses/expenses.service');
 
 //routes
 router.post('/create', authorize(),createSchema, create);
@@ -37,9 +37,6 @@ function getAll(req, res, next) {
         .catch(next);
 }
 
-function getCurrent(req, res, next) {
-    res.json(req.user);
-}
 
 function getById(req, res, next) {
     expenseService.getById(req.params.id)
