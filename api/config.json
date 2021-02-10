@@ -3,7 +3,7 @@
         "host":"us-cdbr-east-03.cleardb.com",
         "user":"b1c69b8787dae0",
         "password":"cb035abc",
-        "database":"expense_tracker_database"
+        "database":"heroku_aaeba0b0c26fad3"
     },
     "secret":"USED TO SIGN AND VERIFY JWT TOKENS,REPLACE WITH OWN SECRET"
 }
