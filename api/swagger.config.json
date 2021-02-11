@@ -1,74 +1,478 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0.0",
-        "title": "Expense tracker API",
-        "description": "Expense tracker  API",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
-    },
-    "components": {
-        "securitySchemes": {
-            "jwt": {
-                "type": "http",
-                "scheme": "bearer",
-                "in": "header",
-                "bearerFormat": "JWT"
-            }
-        },
-        "security": [{
-            "jwt": []
-          }]
-    },
-    "host": "guarded-basin-78853.herokuapp.com",
-    "basePath": "/",
-    "tags": [
-        {
-            "name": "Users",
-            "description": "API for user authentication"
-        }
-    ],
-    "schemes": [
-        "https"
-    ],
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/users": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "description": "Get all users",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Users are returned"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Users"
-                ],
-                "description": "Create a user",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Users are returned"
-                    }
-                }
-            }
-        }
+  "swagger": "2.0",
+  "info": {
+    "description": "An API to track user expenses",
+    "version": "1.0.0",
+    "title": "Expense API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
+  },
+  "host": "guarded-basin-78853.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Expense"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create account",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object to register",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/authenticate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authenticate user",
+        "description": "",
+        "operationId": "authenticateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be authenticated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAuth"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all Users",
+        "description": "",
+        "operationId": "getAllUsers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Find user by ID",
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates a user with form data",
+        "description": "",
+        "operationId": "updatePetUserForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes a user",
+        "description": "",
+        "operationId": "deletePet",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
+    },
+    "/expenses/create": {
+      "post": {
+        "tags": [
+          "Expense"
+        ],
+        "summary": "Add expense",
+        "description": "",
+        "operationId": "addExpense",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Expense object to register",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/expenses": {
+      "get": {
+        "tags": [
+          "Expense"
+        ],
+        "summary": "Get all expenses",
+        "description": "",
+        "operationId": "getAllExpenses",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/expenses/{expenseId}": {
+      "get": {
+        "tags": [
+          "Expense"
+        ],
+        "summary": "Find expense by ID",
+        "description": "Returns a single pet",
+        "operationId": "getExpenseById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "expenseId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Expense"
+        ],
+        "summary": "Updates expense with form data",
+        "description": "",
+        "operationId": "updateExpenseForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "expenseId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Expense"
+        ],
+        "summary": "Deletes an expense",
+        "description": "",
+        "operationId": "deleteExpense",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "expenseId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Expense": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "UserAuth": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
