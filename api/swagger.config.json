@@ -2,12 +2,25 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "Expense tracker api",
+        "title": "Expense tracker API",
         "description": "Expense tracker  API",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
         }
+    },
+    "components": {
+        "securitySchemes": {
+            "jwt": {
+                "type": "http",
+                "scheme": "bearer",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        },
+        "security": [{
+            "jwt": []
+          }]
     },
     "host": "guarded-basin-78853.herokuapp.com",
     "basePath": "/",
@@ -33,6 +46,20 @@
                     "Users"
                 ],
                 "description": "Get all users",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users are returned"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create a user",
                 "produces": [
                     "application/json"
                 ],
